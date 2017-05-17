@@ -27,7 +27,7 @@ public class Main {
     public void tearDown(){
         // Generates a report of the test case.
         // For more information - https://docs.experitest.com/display/public/SA/Report+Of+Executed+Test
-        client.generateReport(true);
+        client.generateReport(false);
         // Releases the client so that other clients can approach the agent in the near future. 
         client.releaseClient();
     }
