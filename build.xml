@@ -29,8 +29,8 @@
      
     <target name="run_tests">
         <junit>
-            <formatter type="xml" />
-            <classpath location="." />
+            <formatter type="xml" usefile="true" />
+            <classpath refid="tests.classpath" />
             <test name="Main" />
         </junit>
     </target>
