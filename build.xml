@@ -24,14 +24,14 @@
         <pathelement location="classes" />
         <fileset dir="lib">
             <include name="**/*.jar" />
-        </fileset>
+        </fileset>  
     </path>
      
     <target name="run_tests">
         <junit>
-            <formatter type="xml" usefile="true" />
-            <classpath refid="tests.classpath" />
-            <test name="Sampleiphone" />
+            <formatter type="xml" />
+            <classpath location="." />
+            <test name="Main" />
         </junit>
     </target>
      

@@ -19,7 +19,7 @@ public class Main {
         client.setProjectBaseDirectory(projectBaseDirectory);
         File reports = new File(System.getProperty("user.dir"), "reports");
         reports.mkdirs();
-        client.setReporter("xml", reports.getAbsolutePath(), "Demo3");
+        client.setReporter("xml", reports.getAbsolutePath(), "Demo5");
     }
     
 
