@@ -14,12 +14,12 @@ public class Main {
     public void setUp(){
         client = new Client(host, port, true);
         client.setProjectBaseDirectory(projectBaseDirectory);
-        client.setReporter("xml", "reports", "Untitled");
+        client.setReporter("xml", "reports", "testipone");
     }
 
     @Test
-    public void testUntitled(){
-        client.setDevice("ios_app:iPhone");
+    public void testtestipone(){
+        client.setDevice("ios_app:iris’s iPhone");
         client.click("default", "CONTINUE", 0, 1);
     }
 
@@ -27,7 +27,7 @@ public class Main {
     public void tearDown(){
         // Generates a report of the test case.
         // For more information - https://docs.experitest.com/display/public/SA/Report+Of+Executed+Test
-        client.generateReport(true);
+        client.generateReport(false);
         // Releases the client so that other clients can approach the agent in the near future. 
         client.releaseClient();
     }
