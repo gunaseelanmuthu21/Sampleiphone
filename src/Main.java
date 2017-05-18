@@ -12,7 +12,7 @@ public class Main {
     private int port = 8889;
     private String projectBaseDirectory = "/Users/mcc1/workspace/project3iphonenew";
     protected Client client = null;
-    //sample...test12345000000000
+    //sample...
 
     @Before
     public void setUp(){
