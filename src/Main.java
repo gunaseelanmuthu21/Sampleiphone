@@ -1,5 +1,8 @@
 //package <set your test package>;
 import com.experitest.client.*;
+
+import java.io.File;
+
 import org.junit.*;
 /**
  *
@@ -14,8 +17,11 @@ public class Main {
     public void setUp(){
         client = new Client(host, port, true);
         client.setProjectBaseDirectory(projectBaseDirectory);
-        client.setReporter("xml", "reports", "testipone");
+        File reports = new File(System.getProperty("user.dir"), "reports");
+        reports.mkdirs();
+        client.setReporter("xml", reports.getAbsolutePath(), "Demo3");
     }
+    
 
     @Test
     public void testtestipone(){
