@@ -1,0 +1,4187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+		<title>Demo5</title>
+
+		<link rel="shortcut icon" href="resources/images/favicon_auto.ico">
+
+		<script type="text/javascript" src='resources/jquery-2.1.0.min.js'></script>
+		<!--[if lt IE 9]>
+			<script type="text/javascript" src='resources/jquery-1.11.1.min.js'></script>
+		<![endif]-->
+		<script type='text/javascript' src='resources/reports.js'></script>
+		<script type="text/javascript" src='resources/js/moment.min.js'></script>
+		<script type="text/javascript" src='resources/js/chart_v2.min.js'></script>
+		<script type="text/javascript" src="resources/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+
+		<style type="text/css">
+
+		* {
+			font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif;
+		}
+
+		a,
+		a:focus,
+		a:active,
+		a:hover{
+			color: black;
+			text-decoration: none;
+		}
+
+		.navbar{
+			position: fixed;
+			margin-bottom: 0;
+			line-height: 60px;
+			height: 59px;
+			width: 100%;
+			border-radius: 0;
+		}
+
+		.navbar h3{
+			float: left;
+			line-height: 16px;
+			font-size: 22px;
+		}
+
+		.navbar .logo{
+			float: right;
+			background-image: url(resources/images/logo.png);
+			width: 100px;
+			height: 30px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			margin: 15px auto;
+		}
+
+		.navbar .logomf{
+			float: right;
+			background-image: url(resources/images/mf_logo.jpg);
+			width: 100px;
+			height: 30px;
+			background-repeat: no-repeat;
+			background-size: contain;
+			margin: 15px auto;
+		}
+
+		.nav-tabs {
+			border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+		}
+
+		.body-content{
+			position: fixed;
+			width: 100%;
+			height: calc(100% - 60px);
+			top: 60px;
+		}
+
+		.left-panel{
+			overflow-y: auto;
+			width: 20%;
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+
+		.left-panel .list-group-item.selected{
+			background-color: rgba(100,100,100,0.1);
+		}
+
+		.left-panel .list-group-item:hover {
+			background-color: rgba(100,100,100,0.1);
+		}
+
+		.left-panel .badge{
+			font-size: 10px;
+			float: right;
+		}
+
+		.left-panel .glyphicon-folder:before {
+  			content: "\e118";
+		}
+
+		.left-panel .collapsed .glyphicon-folder:before {
+  			content: "\e117" !important;
+		}
+
+		.left-panel .badge.success{
+			background-color: rgba(20, 160, 20, 0.8);
+		}
+
+		.left-panel .badge.failed{
+			background-color: rgba(200, 10, 10, 0.8);
+		}
+
+		.list-group-item{
+			border: none;
+			font-size: 14px;
+			display: list-item;
+			cursor: pointer;
+			border-radius: 0px !important;
+			margin-bottom: 0px;
+			padding: 14px 15px !important;
+			border-bottom: 1px solid #eee;
+		}
+
+		.list-group-item.collapse:not(.in){
+			display: none;
+		}
+
+		.left-panel ul > li:nth-child(1) .txt{
+  			font-weight: 600;
+		}
+
+		.list-group-item div:not(.glyphicon) {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.list-group-item > span {
+			float: left;
+		}
+
+		.list-group-item .txt{
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			max-width: calc(100% - 30px);
+		}
+
+		#vertical-divider{
+			position: fixed;
+			border-right: 1px solid rgba(100,100,100,0.2);
+			width: 1px;
+			height: calc(100% - 60px);
+			left: 20%;
+			top: 60px;
+			z-index: 10;
+			cursor: col-resize;
+			cursor: -webkit-grab;
+		}
+
+		#vertical-divider:hover {
+			border: 1px dashed rgba(100,100,100,0.5);
+		}
+
+		#vertical-divider:active {
+  			cursor: -webkit-grabbing;
+		}
+
+		.right-panel{
+			position: fixed;
+			width: 80%;
+			left: 20%;
+			height: calc(100% - 60px);
+			top: 60px;
+		}
+
+		.right-panel .results{
+			position: fixed;
+			height: calc(100% - 60px);
+			top: 60px;
+			width: 80%;
+			overflow-y: auto;
+			padding: 0 20px;
+			margin: 0;
+			display: none;
+		}
+
+		.right-panel .nav li {
+			font-size: 15px;
+			padding: 10px 20px;
+			cursor: pointer;
+		}
+
+		.right-panel .nav li.selected {
+			background: rgba(100,100,100,0.1);
+		}
+
+		.right-panel .results.selected{
+			display: block;
+		}
+
+		.right-panel .nav-tabs{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.right-panel .alert .glyphicon,
+		.right-panel .panel .glyphicon{
+			margin-right: 10px;
+		}
+
+		.right-panel .two-screenshots .panel {
+			width: 49%;
+			float: left;
+		}
+
+		.right-panel .two-screenshots .panel:first-child{
+			margin-right: 2%;
+		}
+
+		.right-panel .panel .table{
+			margin: 0;
+		}
+
+		.right-panel .panel .table td{
+			border: none;
+			width: 50%;
+		}
+		
+		.table.t  td{
+			width:33% !important;
+		}
+		
+		.right-panel .panel .table tr:not(:first-child){
+			border-top: 1px solid #ddd;
+		}
+
+		.right-panel .results:not(:first-child) .page-header{
+			margin: 20px 0;
+		}
+
+		.right-panel .screenshot img{
+			max-width: 100%;
+			display: block;
+  			margin-right: auto;
+  			margin-left: auto;
+		}
+
+		.right-panel .video-wrap{
+			background-color: black;
+		}
+
+		.right-panel .video-wrap video{
+			height:600px;
+
+		}
+
+		.popover-title {
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		video:-webkit-full-screen	{ width: 100% ; height: 100% ; max-height: none;}
+		video:-moz-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:-ms-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:-o-full-screen		{ width: 100% ; height: 100% ; max-height: none;}
+		video:full-screen			{ width: 100% ; height: 100% ; max-height: none;}
+
+		#noscript{
+			position: fixed;
+			z-index: 10;
+			bottom: 10px;
+			right: 30px;
+		}
+
+		#monitoring-graph-cpu-container{
+            width: 48%;
+            float: left;
+        }
+
+        #monitoring-graph-memory-container{
+            width: 48%;
+            float: right;
+        }
+
+		</style>
+
+	</head>
+	<body>
+		<noscript>
+			<div id='noscript' class='alert alert-danger'>
+				Javascript was not detected. Please enable Javascript in this page to access the data in this report.
+			</div>
+		</noscript>
+
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<h3>Demo5</h3>
+							<a href='http://www.experitest.com' class='logo' target='_BLANK'></a>
+						</div>
+		</nav>
+
+		<div class='body-content'>
+
+			<div class='left-panel'>
+				<ul id='report-bar-ul' class='list-group'>
+
+					<li class='list-group-item selected' title="Test Execution Summary" data-step-counter="0">
+						<span class='txt'>Test Execution Summary</span>
+						<div class='badge'>
+							<span class='glyphicon glyphicon-th-list'></span>
+						</div>
+					</li>
+
+										
+													<li class='list-group-item' title="Start test Demo5" data-step-counter="1"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>1</span>
+									<span> Start test Demo5</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Set device to: ios_app:iris&amp;rsquo;s iPhone" data-step-counter="2"
+																data-content="<img src='images/0.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>2</span>
+									<span> Set device to: ios_app:iris&rsquo;s iPhone</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'CONTINUE' in zone default, index: 0, click count: 1" data-step-counter="3"
+																data-content="<img src='images/1.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>3</span>
+									<span> Click 'CONTINUE' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'element 2' in zone default, timeout: 30000" data-step-counter="4"
+																data-content="<img src='images/3.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>4</span>
+									<span> Wait for 'element 2' in zone default, timeout: 30000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'Managers Assistance Program' in zone default, index: 0, click count: 1" data-step-counter="5"
+																data-content="<img src='images/4.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>5</span>
+									<span> Click 'Managers Assistance Program' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'element 3' in zone default, timeout: 10000" data-step-counter="6"
+																data-content="<img src='images/6.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>6</span>
+									<span> Wait for 'element 3' in zone default, timeout: 10000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'backbutton' in zone default, index: 0, click count: 1" data-step-counter="7"
+																data-content="<img src='images/7.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>7</span>
+									<span> Click 'backbutton' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'element 2' in zone default, timeout: 30000" data-step-counter="8"
+																data-content="<img src='images/9.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>8</span>
+									<span> Wait for 'element 2' in zone default, timeout: 30000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'Employee Assistance Program' in zone default, index: 0, click count: 1" data-step-counter="9"
+																data-content="<img src='images/10.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>9</span>
+									<span> Click 'Employee Assistance Program' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'element 1' in zone default, timeout: 10000" data-step-counter="10"
+																data-content="<img src='images/12.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>10</span>
+									<span> Wait for 'element 1' in zone default, timeout: 10000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'backbutton' in zone default, index: 0, click count: 1" data-step-counter="11"
+																data-content="<img src='images/13.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>11</span>
+									<span> Click 'backbutton' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Wait for 'element 2' in zone default, timeout: 30000" data-step-counter="12"
+																data-content="<img src='images/15.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>12</span>
+									<span> Wait for 'element 2' in zone default, timeout: 30000</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="Click 'Critical Incident Support' in zone default, index: 0, click count: 1" data-step-counter="13"
+																data-content="<img src='images/16.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>13</span>
+									<span> Click 'Critical Incident Support' in zone default, index: 0, click count: 1</span>
+								</div>
+
+																	<div class='badge failed'>
+										<span class='glyphicon glyphicon-remove'></span>
+									</div>
+								
+							</li>
+						
+												
+					
+													<li class='list-group-item' title="End Test" data-step-counter="14"
+																data-content="<img src='images/18.PNG' alt='Falied to retrieve image.' style='max-height:50px;display: block; margin-right: auto; margin-left: auto;'></img>"
+																>
+
+								<div class='txt'>
+									<span class='nmbr'>14</span>
+									<span> End Test</span>
+								</div>
+
+																	<div class='badge success'>
+										<span class='glyphicon glyphicon-ok'></span>
+									</div>
+								
+							</li>
+						
+												
+									</ul>
+				<div id="vertical-divider"></div>
+			</div>
+
+			<div class='right-panel'>
+
+				
+				<div class='results' style="display:block;" data-step-counter="0">
+					<h3 class="page-header">
+						Test Execution Summary
+					</h3>
+
+										<div class="alert alert-danger" role="alert">
+						<span class='glyphicon glyphicon-remove'></span>Failed
+					</div>
+					
+   					
+					<div class='panel panel-default'>
+                        <div class='panel-heading'>Device Monitoring Vitals <small>()</small>
+                        <a href="./monitor.csv" style="color: #337AB7 !important; text-decoration: underline !important;">Link to CSV file</a>
+                        </div>
+                        <div class='panel-body'>
+                            <div id='monitoring-graph-cpu-container'>
+                                <canvas id="monitoringCpuGraph"></canvas>
+                            </div>
+                            <div id='monitoring-graph-memory-container'>
+                                <canvas id="monitoringMemoryGraph"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<div class='panel panel-default'>
+						<div class='panel-heading'>Execution Information</div>
+						<div class='panel-body'>
+							<table class='table'>
+								<tbody>
+									<tr>
+										<td>Time Zone</td>
+										<td>Australian Eastern Standard Time (New South Wales)</td>
+									</tr>
+									<tr>
+										<td>Run Started</td>
+										<td>Fri, 19 May 2017 12:07:56</td>
+									</tr>
+									<tr>
+										<td>Total Time</td>
+										<td>64.0 Seconds</td>
+									</tr>
+									<tr>
+										<td>Project Path</td>
+										<td>/Users/mcc1/workspace/project3iphonenew</td>
+									</tr>
+									<tr>
+										<td>User</td>
+										<td>mcc1</td>
+									</tr>
+		                            <tr>
+		                                <td>Machine Name</td>
+		                                <td>MCCs-MacBook-Pro-3.local</td>
+		                            </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					
+					
+					<div class='panel panel-default'>
+						<div class='panel-heading'>Device Information <small>(iris’s iPhone)</small></div>
+						<div class='panel-body'>
+							<table class='table'>
+								<tbody>
+									<tr>
+										<td>Name</td>
+										<td>iris’s iPhone</td>
+									</tr>
+									<tr>
+										<td>OS</td>
+										<td>iOS</td>
+									</tr>
+									<tr>
+										<td>Model</td>
+										<td>iPhone 6</td>
+									</tr>
+									<tr>
+										<td>Manufacturer</td>
+										<td>Apple</td>
+									</tr>
+									<tr>
+										<td>Version</td>
+										<td>10.3.1</td>
+									</tr>
+									<tr>
+										<td>Screen Size</td>
+										<td>750x1334</td>
+									</tr>
+									<tr>
+										<td>S/N</td>
+										<td>e6869c6b9ad9537f31b7b80d0abaa9648cb80a67</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+                    <script type="text/javascript">
+
+                    $(document).ready(function(){
+
+                        var cpuLineData = {
+                            labels: [
+                                                                    '19/05/2017 12:07:40',
+                                                                    '19/05/2017 12:07:58',
+                                                                    '19/05/2017 12:07:59',
+                                                                    '19/05/2017 12:08:00',
+                                                                    '19/05/2017 12:08:01',
+                                                                    '19/05/2017 12:08:02',
+                                                                    '19/05/2017 12:08:03',
+                                                                    '19/05/2017 12:08:04',
+                                                                    '19/05/2017 12:08:06',
+                                                                    '19/05/2017 12:08:08',
+                                                                    '19/05/2017 12:08:09',
+                                                                    '19/05/2017 12:08:10',
+                                                                    '19/05/2017 12:08:11',
+                                                                    '19/05/2017 12:08:12',
+                                                                    '19/05/2017 12:08:13',
+                                                                    '19/05/2017 12:08:14',
+                                                                    '19/05/2017 12:08:15',
+                                                                    '19/05/2017 12:08:16',
+                                                                    '19/05/2017 12:08:17',
+                                                                    '19/05/2017 12:08:18',
+                                                                    '19/05/2017 12:08:19',
+                                                                    '19/05/2017 12:08:21',
+                                                                    '19/05/2017 12:08:22',
+                                                                    '19/05/2017 12:08:23',
+                                                                    '19/05/2017 12:08:24',
+                                                                    '19/05/2017 12:08:26',
+                                                                    '19/05/2017 12:08:27',
+                                                                    '19/05/2017 12:08:28',
+                                                                    '19/05/2017 12:08:29',
+                                                                    '19/05/2017 12:08:30',
+                                                                    '19/05/2017 12:08:31',
+                                                                    '19/05/2017 12:08:32',
+                                                                    '19/05/2017 12:08:34',
+                                                                    '19/05/2017 12:08:35',
+                                                                    '19/05/2017 12:08:36',
+                                                                    '19/05/2017 12:08:37',
+                                                                    '19/05/2017 12:08:38',
+                                                                    '19/05/2017 12:08:39',
+                                                                    '19/05/2017 12:08:40',
+                                                                    '19/05/2017 12:08:41',
+                                                                    '19/05/2017 12:08:42',
+                                                                    '19/05/2017 12:08:43',
+                                                                    '19/05/2017 12:08:45',
+                                                                    '19/05/2017 12:08:47',
+                                                                    '19/05/2017 12:08:48',
+                                                                    '19/05/2017 12:08:49',
+                                                                    '19/05/2017 12:08:50',
+                                                                    '19/05/2017 12:08:51',
+                                                                    '19/05/2017 12:08:52',
+                                                                    '19/05/2017 12:08:53',
+                                                                    '19/05/2017 12:08:54',
+                                                                    '19/05/2017 12:08:56',
+                                                                    '19/05/2017 12:08:57',
+                                                                    '19/05/2017 12:08:58',
+                                                                    '19/05/2017 12:08:59',
+                                                                    '19/05/2017 12:09:01',
+                                                                    '19/05/2017 12:09:02',
+                                                                    '19/05/2017 12:09:03',
+                                                                    '19/05/2017 12:09:04',
+                                                                    '19/05/2017 12:09:05',
+                                                            ],
+                            datasets: [
+                                {
+                                    label: "CPU usage over time",
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: "rgba(91,191,70,0.4)",
+                                    borderColor: "rgba(91,191,70,1)",
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: "rgba(91,191,70,1)",
+                                    pointBackgroundColor: "#fff",
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 2,
+                                    pointHitRadius: 10,
+                                    data: [
+                                                                                    '38.731737',
+                                                                                    '3.557312',
+                                                                                    '36.974791',
+                                                                                    '41.203703',
+                                                                                    '41.666666',
+                                                                                    '48.230087',
+                                                                                    '54.520336',
+                                                                                    '40.463829',
+                                                                                    '38.226299',
+                                                                                    '39.814815',
+                                                                                    '54.128441',
+                                                                                    '26.985982',
+                                                                                    '30.659398',
+                                                                                    '27.314815',
+                                                                                    '28.24074',
+                                                                                    '28.703703',
+                                                                                    '27.42731',
+                                                                                    '26.955694',
+                                                                                    '30.874108',
+                                                                                    '27.230648',
+                                                                                    '26.47975',
+                                                                                    '33.476431',
+                                                                                    '27.435965',
+                                                                                    '33.034787',
+                                                                                    '49.800079',
+                                                                                    '38.425926',
+                                                                                    '40.74074',
+                                                                                    '43.925232',
+                                                                                    '45.153755',
+                                                                                    '28.118449',
+                                                                                    '29.545454',
+                                                                                    '27.570093',
+                                                                                    '27.916234',
+                                                                                    '30.218855',
+                                                                                    '27.916234',
+                                                                                    '26.851851',
+                                                                                    '29.977913',
+                                                                                    '27.777779',
+                                                                                    '26.851851',
+                                                                                    '32.87037',
+                                                                                    '30.373833',
+                                                                                    '50.462963',
+                                                                                    '38.14036',
+                                                                                    '48.165138',
+                                                                                    '41.203703',
+                                                                                    '39.351852',
+                                                                                    '38.888888',
+                                                                                    '39.252337',
+                                                                                    '39.649168',
+                                                                                    '38.390985',
+                                                                                    '38.939394',
+                                                                                    '37.914774',
+                                                                                    '40.562351',
+                                                                                    '38.888887',
+                                                                                    '39.096573',
+                                                                                    '42.592592',
+                                                                                    '42.774315',
+                                                                                    '39.252337',
+                                                                                    '38.136034',
+                                                                                    '38.136034',
+                                                                            ],
+                                }
+                            ]
+                        };
+
+                        var cpuLineOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            animation: false,
+                            scales: {
+                                xAxes: [{
+                                    type: "time",
+                                    time: {
+                                        format: 'DD/MM/YYYY HH:mm:ss',
+                                        tooltipFormat: 'll HH:mm:ss'
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Time'
+                                    }
+                                }, ],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: '%'
+                                    }
+                                }]
+                            }
+                        };
+
+                        var memoryLineData = {
+                            labels: [
+                                                                    '19/05/2017 12:07:40',
+                                                                    '19/05/2017 12:07:58',
+                                                                    '19/05/2017 12:07:59',
+                                                                    '19/05/2017 12:08:00',
+                                                                    '19/05/2017 12:08:01',
+                                                                    '19/05/2017 12:08:02',
+                                                                    '19/05/2017 12:08:03',
+                                                                    '19/05/2017 12:08:04',
+                                                                    '19/05/2017 12:08:06',
+                                                                    '19/05/2017 12:08:08',
+                                                                    '19/05/2017 12:08:09',
+                                                                    '19/05/2017 12:08:10',
+                                                                    '19/05/2017 12:08:11',
+                                                                    '19/05/2017 12:08:12',
+                                                                    '19/05/2017 12:08:13',
+                                                                    '19/05/2017 12:08:14',
+                                                                    '19/05/2017 12:08:15',
+                                                                    '19/05/2017 12:08:16',
+                                                                    '19/05/2017 12:08:17',
+                                                                    '19/05/2017 12:08:18',
+                                                                    '19/05/2017 12:08:19',
+                                                                    '19/05/2017 12:08:21',
+                                                                    '19/05/2017 12:08:22',
+                                                                    '19/05/2017 12:08:23',
+                                                                    '19/05/2017 12:08:24',
+                                                                    '19/05/2017 12:08:26',
+                                                                    '19/05/2017 12:08:27',
+                                                                    '19/05/2017 12:08:28',
+                                                                    '19/05/2017 12:08:29',
+                                                                    '19/05/2017 12:08:30',
+                                                                    '19/05/2017 12:08:31',
+                                                                    '19/05/2017 12:08:32',
+                                                                    '19/05/2017 12:08:34',
+                                                                    '19/05/2017 12:08:35',
+                                                                    '19/05/2017 12:08:36',
+                                                                    '19/05/2017 12:08:37',
+                                                                    '19/05/2017 12:08:38',
+                                                                    '19/05/2017 12:08:39',
+                                                                    '19/05/2017 12:08:40',
+                                                                    '19/05/2017 12:08:41',
+                                                                    '19/05/2017 12:08:42',
+                                                                    '19/05/2017 12:08:43',
+                                                                    '19/05/2017 12:08:45',
+                                                                    '19/05/2017 12:08:47',
+                                                                    '19/05/2017 12:08:48',
+                                                                    '19/05/2017 12:08:49',
+                                                                    '19/05/2017 12:08:50',
+                                                                    '19/05/2017 12:08:51',
+                                                                    '19/05/2017 12:08:52',
+                                                                    '19/05/2017 12:08:53',
+                                                                    '19/05/2017 12:08:54',
+                                                                    '19/05/2017 12:08:56',
+                                                                    '19/05/2017 12:08:57',
+                                                                    '19/05/2017 12:08:58',
+                                                                    '19/05/2017 12:08:59',
+                                                                    '19/05/2017 12:09:01',
+                                                                    '19/05/2017 12:09:02',
+                                                                    '19/05/2017 12:09:03',
+                                                                    '19/05/2017 12:09:04',
+                                                                    '19/05/2017 12:09:05',
+                                                            ],
+                            datasets: [
+                                {
+                                    label: "Memory usage over time",
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: "rgba(247,70,74,0.4)",
+                                    borderColor: "rgba(247,70,74,1)",
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: "rgba(247,70,74,1)",
+                                    pointBackgroundColor: "#fff",
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 2,
+                                    pointHitRadius: 10,
+                                    data: [
+                                                                                    '761.1484375',
+                                                                                    '755.4453125',
+                                                                                    '759.72265625',
+                                                                                    '759.81640625',
+                                                                                    '759.85546875',
+                                                                                    '788.38671875',
+                                                                                    '772.26953125',
+                                                                                    '772.296875',
+                                                                                    '776.88671875',
+                                                                                    '773.2734375',
+                                                                                    '765.5390625',
+                                                                                    '770.02734375',
+                                                                                    '766.28515625',
+                                                                                    '765.10546875',
+                                                                                    '768.77734375',
+                                                                                    '765.4921875',
+                                                                                    '764.5703125',
+                                                                                    '767.8515625',
+                                                                                    '765.5234375',
+                                                                                    '765.22265625',
+                                                                                    '761.49609375',
+                                                                                    '758.74609375',
+                                                                                    '758.25',
+                                                                                    '777.0',
+                                                                                    '779.796875',
+                                                                                    '780.57421875',
+                                                                                    '775.05078125',
+                                                                                    '775.16796875',
+                                                                                    '769.25390625',
+                                                                                    '769.7421875',
+                                                                                    '769.4375',
+                                                                                    '768.68359375',
+                                                                                    '771.734375',
+                                                                                    '769.26953125',
+                                                                                    '768.9921875',
+                                                                                    '772.80078125',
+                                                                                    '769.51171875',
+                                                                                    '765.40625',
+                                                                                    '770.140625',
+                                                                                    '765.6328125',
+                                                                                    '764.69921875',
+                                                                                    '783.6640625',
+                                                                                    '781.37109375',
+                                                                                    '796.30078125',
+                                                                                    '797.90234375',
+                                                                                    '797.66796875',
+                                                                                    '797.4765625',
+                                                                                    '794.52734375',
+                                                                                    '793.8046875',
+                                                                                    '793.0390625',
+                                                                                    '792.78515625',
+                                                                                    '794.546875',
+                                                                                    '780.5546875',
+                                                                                    '775.6875',
+                                                                                    '775.671875',
+                                                                                    '776.6796875',
+                                                                                    '776.79296875',
+                                                                                    '776.77734375',
+                                                                                    '776.7890625',
+                                                                                    '776.76953125',
+                                                                            ],
+                                }
+                            ]
+                        };
+
+                        var memoryLineOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            animation: false,
+                            scales: {
+                                xAxes: [{
+                                    type: "time",
+                                    time: {
+                                        format: 'DD/MM/YYYY HH:mm:ss',
+                                        tooltipFormat: 'll HH:mm:ss'
+                                    },
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Time'
+                                    }
+                                }, ],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'MB'
+                                    }
+                                }]
+                            }
+                        };
+
+                        var cpuCtx = document.getElementById("monitoringCpuGraph").getContext("2d");;
+
+                        var cpuLineChart = Chart.Line(cpuCtx, {
+                            data: cpuLineData,
+                            options: cpuLineOptions
+                        });
+
+                        var memoryCtx = document.getElementById("monitoringMemoryGraph").getContext("2d");;
+
+                        var memoryLineChart = Chart.Line(memoryCtx, {
+                            data: memoryLineData,
+                            options: memoryLineOptions
+                        });
+
+
+                    });
+
+                    </script>
+
+
+					<!--
+										<div class='panel panel-default'>
+						<div class='panel-heading'>Transactions Information</div>
+						<div class='panel-body'>
+							<table class='table t'>
+								<thead>
+									<th>Step #</th>
+									<th>Name</th>
+									<th>Duration (seconds)</th>
+								</thead>
+								<tbody>
+																	</tbody>
+							</table>
+						</div>
+					</div>
+										-->
+				</div>
+
+				
+				
+					
+					<div class='results' data-step-counter="1">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Start test Demo5</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 0.001 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11</div>
+															</div>
+							
+							
+							
+								
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-1" onclick="toggleParamsData(1)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-1" style="display:none">reporterName : xml<br>
+directory : /Users/mcc1/Documents/workspace/Sampleiphone/reports<br>
+testName : Demo5<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Start test Demo5</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:07:56</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>1</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>0.01</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="2">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Set device to: ios_app:iris&rsquo;s iPhone</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 3.092 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">
+										<button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-btn-2" onclick="toggleData(2)"></button>
+										Result Data
+									</div>
+									<div class="panel-body" id="collapse-data-2">Device Information . . . </div>
+									<div class="panel-body" id="expand-data-2" style="display:none">Device Information<br>
+Name: iris&rsquo;s iPhone<br>
+S/N: e6869c6b9ad9537f31b7b80d0abaa9648cb80a67<br>
+OS: iOS<br>
+Manufacture: Apple<br>
+Model: iPhone 6<br>
+Version: 10.3.1<br>
+Screen size: 750x1334<br>
+Connected to: 127.0.0.1:27015<br>
+</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/0.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/0.PNG' target="_blank" >
+												<img src='images/0.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-2" onclick="toggleParamsData(2)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-2" style="display:none">Device : ios_app:iris’s iPhone<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Set device to: ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/0.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:00</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>2</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Device Information
+Name: iris&rsquo;s iPhone
+S/N: e6869c6b9ad9537f31b7b80d0abaa9648cb80a67
+OS: iOS
+Manufacture: Apple
+Model: iPhone 6
+Version: 10.3.1
+Screen size: 750x1334
+Connected to: 127.0.0.1:27015
+</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>3.1</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="3">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'CONTINUE' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.546 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/1.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/1.PNG' target="_blank" >
+												<img src='images/1.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/2.PNG' target="_blank">
+												<img src='images/2.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-3" onclick="toggleParamsData(3)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-3" style="display:none">Zone : default<br>
+Element : CONTINUE<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>371,1013</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'CONTINUE' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>94</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/2.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/1.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>62,966</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:02</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>3</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.55</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>618</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="4">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'element 2' in zone default, timeout: 30000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.763 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: true</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/3.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/3.PNG' target="_blank" >
+												<img src='images/3.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-4" onclick="toggleParamsData(4)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-4" style="display:none">Zone : default<br>
+Element : element 2<br>
+Index : 0<br>
+Timeout : 30000<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>center</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>centerWinRelative</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Wait for 'element 2' in zone default, timeout: 30000</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>1294</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/3.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>0,40</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:06</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>4</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: true</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.77</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>750</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="5">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'Managers Assistance Program' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.479 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/4.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/4.PNG' target="_blank" >
+												<img src='images/4.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/5.PNG' target="_blank">
+												<img src='images/5.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-5" onclick="toggleParamsData(5)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-5" style="display:none">Zone : default<br>
+Element : Managers Assistance Program<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>208,593</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'Managers Assistance Program' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>58</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/5.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/4.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>88,564</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:08</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>5</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.48</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>240</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="6">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'element 3' in zone default, timeout: 10000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 11.707 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: false</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/6.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/6.PNG' target="_blank" >
+												<img src='images/6.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-6" onclick="toggleParamsData(6)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-6" style="display:none">Zone : default<br>
+Element : element 3<br>
+Index : 0<br>
+Timeout : 10000<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Wait for 'element 3' in zone default, timeout: 10000</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/6.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:20</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>6</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: false</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>11.71</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="7">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'backbutton' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.261 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/7.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/7.PNG' target="_blank" >
+												<img src='images/7.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/8.PNG' target="_blank">
+												<img src='images/8.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-7" onclick="toggleParamsData(7)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-7" style="display:none">Zone : default<br>
+Element : backbutton<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>center</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>centerWinRelative</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'backbutton' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>41</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/8.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/7.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>15,103</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:23</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>7</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.27</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>25</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="8">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'element 2' in zone default, timeout: 30000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.474 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: true</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/9.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/9.PNG' target="_blank" >
+												<img src='images/9.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-8" onclick="toggleParamsData(8)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-8" style="display:none">Zone : default<br>
+Element : element 2<br>
+Index : 0<br>
+Timeout : 30000<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>center</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>centerWinRelative</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Wait for 'element 2' in zone default, timeout: 30000</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>1294</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/9.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>0,40</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:26</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>8</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: true</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.48</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>750</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="9">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'Employee Assistance Program' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.332 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/10.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/10.PNG' target="_blank" >
+												<img src='images/10.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/11.PNG' target="_blank">
+												<img src='images/11.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-9" onclick="toggleParamsData(9)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-9" style="display:none">Zone : default<br>
+Element : Employee Assistance Program<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>539,593</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'Employee Assistance Program' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>58</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/11.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/10.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>420,564</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:28</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>9</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.34</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>238</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="10">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'element 1' in zone default, timeout: 10000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 11.688 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: false</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/12.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/12.PNG' target="_blank" >
+												<img src='images/12.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-10" onclick="toggleParamsData(10)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-10" style="display:none">Zone : default<br>
+Element : element 1<br>
+Index : 0<br>
+Timeout : 10000<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Wait for 'element 1' in zone default, timeout: 10000</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/12.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:41</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>10</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: false</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>11.69</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="11">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'backbutton' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.088 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/13.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/13.PNG' target="_blank" >
+												<img src='images/13.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/14.PNG' target="_blank">
+												<img src='images/14.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-11" onclick="toggleParamsData(11)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-11" style="display:none">Zone : default<br>
+Element : backbutton<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>center</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>centerWinRelative</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>27,123</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'backbutton' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>41</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/14.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/13.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>15,103</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:43</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>11</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.09</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>25</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="12">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Wait for 'element 2' in zone default, timeout: 30000</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 2.747 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+														<div class="panel panel-default">
+																	<div class="panel-heading">Result Data</div>
+									<div class="panel-body">Found: true</div>
+															</div>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/15.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/15.PNG' target="_blank" >
+												<img src='images/15.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-12" onclick="toggleParamsData(12)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-12" style="display:none">Zone : default<br>
+Element : element 2<br>
+Index : 0<br>
+Timeout : 30000<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>center</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>centerWinRelative</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>click</td>
+													<td>375,687</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Wait for 'element 2' in zone default, timeout: 30000</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>1294</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/15.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>0,40</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:08:46</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>12</td>
+												</tr>
+																																			<tr>
+													<td>text</td>
+													<td>Found: true</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>2.75</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>750</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="13">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">Click 'Critical Incident Support' in zone default, index: 0, click count: 1</h3>
+
+														<div class='panel panel-danger'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-remove'></span>Failed
+								</div>
+
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 12.131 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+															<div class='two-screenshots'>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="scene://localhost?pathToSceneImage=%2FUsers%2Fmcc1%2Fworkspace%2Fproject3iphonenew%2Fscenes%2Fscene.1495159740533.png&m_A_i_N__p_A_g_E__u_R_l=" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/16.PNG' target="_blank" >
+												<img src='images/16.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Post Screenshot
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/17.PNG' target="_blank">
+												<img src='images/17.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-13" onclick="toggleParamsData(13)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-13" style="display:none">Zone : default<br>
+Element : Critical Incident Support<br>
+Index : 0<br>
+Click Count : 1<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>bcolor</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>bcolor.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>color</td>
+													<td>-2147483648</td>
+												</tr>
+																																			<tr>
+													<td>color.name</td>
+													<td>UNKNOWN</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>Click 'Critical Incident Support' in zone default, index: 0, click count: 1</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Error Message</td>
+													<td>Element was not identified: 'Critical Incident Support' at zone default</td>
+												</tr>
+																																			<tr>
+													<td>font.size</td>
+													<td>-1</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>linkToDump</td>
+													<td>scene://localhost?pathToSceneImage=%2FUsers%2Fmcc1%2Fworkspace%2Fproject3iphonenew%2Fscenes%2Fscene.1495159740533.png&amp;m_A_i_N__p_A_g_E__u_R_l=</td>
+												</tr>
+																																			<tr>
+													<td>outFile2</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/17.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/16.PNG</td>
+												</tr>
+																																			<tr>
+													<td>pathToSceneImage</td>
+													<td>/Users/mcc1/workspace/project3iphonenew/scenes/scene.1495159740533.png</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>position</td>
+													<td>0,0</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:09:00</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>13</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>12.14</td>
+												</tr>
+																																			<tr>
+													<td>width</td>
+													<td>-1</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+					
+					<div class='results' data-step-counter="14">
+						<ul class='nav nav-tabs sub-tabs'>
+							<li class='selected'>Result Details</li>
+
+														<li>Debug Properties</li>
+													</ul>
+						<div class='sub-results' style="display: none;">
+
+							<h3 class="page-header">End Test</h3>
+
+														<div class='panel panel-success'>
+								<div class='panel-heading'>
+									<span class='glyphicon glyphicon-ok'></span>Passed
+								</div>
+							
+
+
+								<div class='panel-body'>
+									<div>Total Time: 0.09 Seconds</div>
+																</div>
+							</div>
+
+							<script type="text/javascript">
+							function toggleData(step) {
+                                var $btn = document.getElementById("expand-data-btn-"+step);
+                                var $expanded = document.getElementById("expand-data-"+step);
+                                var $collapsed = document.getElementById("collapse-data-"+step);
+                                var btn_class = $btn.className.split(" ");
+                                if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                    btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                    $collapsed.style.display="none";
+                                    $expanded.style.display="block";
+                                }
+                                else {
+                                    btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                    $collapsed.style.display="block";
+                                    $expanded.style.display="none";
+                                }
+                                $btn.className = btn_class.join(" ");
+                            }
+                            </script>
+							
+							
+							
+								
+																<div class='panel panel-default screenshot'>
+									<div class='panel-heading'>
+										Result Screenshot
+																				<a class="btn btn-default btn-xs pull-right dump-link" href="images/18.PNG" target="_blank">open</a>
+																			</div>
+									<div class='panel-body'>
+										<div class='img'>
+											<a href='images/18.PNG' target="_blank" >
+												<img src='images/18.PNG'/>
+											</a>
+										</div>
+									</div>
+								</div>
+								
+								
+												</div>
+
+
+                        <script type="text/javascript">
+
+                        function toggleParamsData(step) {
+
+                            var $btn = document.getElementById("expand-data-params-btn-" + step);
+                            var $collapsed = document.getElementById("collapse-data-params-" + step);
+                            var btn_class = $btn.className.split(" ");
+
+                            if (btn_class.indexOf("glyphicon-plus") > -1) {
+                                btn_class[btn_class.indexOf("glyphicon-plus")] = "glyphicon-minus";
+                                $collapsed.style.display = "block";
+                            } else {
+                                btn_class[btn_class.indexOf("glyphicon-minus")] = "glyphicon-plus";
+                                $collapsed.style.display = "none";
+                            }
+
+                            $btn.className = btn_class.join(" ");
+                        }
+
+                        </script>
+
+												<div class='sub-results'>
+
+						                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <button class="btn btn-default glyphicon glyphicon-plus btn-xs pull-left" style="outline:none" id="expand-data-params-btn-14" onclick="toggleParamsData(14)"></button>
+                                        Command Parameters
+                                </div>
+                                <div class="panel-body" id="collapse-data-params-14" style="display:none">releaseClient : false<br>
+</div>
+                        </div>
+                        
+							<div class="panel panel-default">
+								<div class="panel-heading">Debug Properties</div>
+								<div class="panel-body">
+									<table class='table'>
+																				<tbody>
+																							<tr>
+													<td>Application Bounds</td>
+													<td>0,0,1334,750</td>
+												</tr>
+																																			<tr>
+													<td>Client ID</td>
+													<td>clientID:Java:version=10.4:e1e98c57-c0cb-4e18-95fd-f0d35a03c4f0</td>
+												</tr>
+																																			<tr>
+													<td>Console Output</td>
+													<td>End Test</td>
+												</tr>
+																																			<tr>
+													<td>Device Name</td>
+													<td>ios_app:iris&rsquo;s iPhone</td>
+												</tr>
+																																			<tr>
+													<td>Found</td>
+													<td>false</td>
+												</tr>
+																																			<tr>
+													<td>Image Height</td>
+													<td>711</td>
+												</tr>
+																																			<tr>
+													<td>Image Width</td>
+													<td>400</td>
+												</tr>
+																																			<tr>
+													<td>Output File</td>
+													<td>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11/images/18.PNG</td>
+												</tr>
+																																			<tr>
+													<td>Port</td>
+													<td>N/A</td>
+												</tr>
+																																			<tr>
+													<td>product.version</td>
+													<td>10.4.69</td>
+												</tr>
+																																			<tr>
+													<td>Report</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Scenario Index</td>
+													<td>0</td>
+												</tr>
+																																			<tr>
+													<td>Screen Height</td>
+													<td>1334</td>
+												</tr>
+																																			<tr>
+													<td>Screen Width</td>
+													<td>750</td>
+												</tr>
+																																			<tr>
+													<td>Start Time</td>
+													<td>12:09:01</td>
+												</tr>
+																																			<tr>
+													<td>Status</td>
+													<td>true</td>
+												</tr>
+																																			<tr>
+													<td>Step</td>
+													<td>14</td>
+												</tr>
+																																			<tr>
+													<td>Time (in sec)</td>
+													<td>0.09</td>
+												</tr>
+																																	</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+
+					
+				
+			</div>
+		</div>
+	</body>
+</html>

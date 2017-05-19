@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><test_report>
+<info>
+<test_info>
+<test_status>Failed</test_status>
+<time_zone>Australian Eastern Standard Time (New South Wales)</time_zone>
+<run_started>Fri, 19 May 2017 12:07:56</run_started>
+<total_time>64.0</total_time>
+<project>/Users/mcc1/workspace/project3iphonenew</project>
+<user>mcc1</user>
+<machine_name>MCCs-MacBook-Pro-3.local</machine_name>
+</test_info>
+<device_info>
+<device_name>iris’s iPhone</device_name>
+<manufacture>Apple</manufacture>
+<model>iPhone 6</model>
+<os>iOS</os>
+<serial_number>e6869c6b9ad9537f31b7b80d0abaa9648cb80a67</serial_number>
+<version>10.3.1</version>
+<versionMajor>10.x</versionMajor>
+<screen_size>750x1334</screen_size>
+</device_info>
+</info>
+<reports>
+<report>
+<text>/Users/mcc1/Documents/workspace/Sampleiphone/reports/test11</text>
+<line>Start test Demo5</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>0.PNG</imageFile>
+<text>Device Information&lt;br&gt;
+Name: iris&amp;rsquo;s iPhone&lt;br&gt;
+S/N: e6869c6b9ad9537f31b7b80d0abaa9648cb80a67&lt;br&gt;
+OS: iOS&lt;br&gt;
+Manufacture: Apple&lt;br&gt;
+Model: iPhone 6&lt;br&gt;
+Version: 10.3.1&lt;br&gt;
+Screen size: 750x1334&lt;br&gt;
+Connected to: 127.0.0.1:27015&lt;br&gt;
+</text>
+<line>Set device to: ios_app:iris&amp;rsquo;s iPhone</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>1.PNG</imageFile>
+<secondImageFile>2.PNG</secondImageFile>
+<line>Click 'CONTINUE' in zone default, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>3.PNG</imageFile>
+<text>Found: true</text>
+<line>Wait for 'element 2' in zone default, timeout: 30000</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>4.PNG</imageFile>
+<secondImageFile>5.PNG</secondImageFile>
+<line>Click 'Managers Assistance Program' in zone default, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>6.PNG</imageFile>
+<text>Found: false</text>
+<line>Wait for 'element 3' in zone default, timeout: 10000</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>7.PNG</imageFile>
+<secondImageFile>8.PNG</secondImageFile>
+<line>Click 'backbutton' in zone default, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>9.PNG</imageFile>
+<text>Found: true</text>
+<line>Wait for 'element 2' in zone default, timeout: 30000</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>10.PNG</imageFile>
+<secondImageFile>11.PNG</secondImageFile>
+<line>Click 'Employee Assistance Program' in zone default, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>12.PNG</imageFile>
+<text>Found: false</text>
+<line>Wait for 'element 1' in zone default, timeout: 10000</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>13.PNG</imageFile>
+<secondImageFile>14.PNG</secondImageFile>
+<line>Click 'backbutton' in zone default, index: 0, click count: 1</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>15.PNG</imageFile>
+<text>Found: true</text>
+<line>Wait for 'element 2' in zone default, timeout: 30000</line>
+<status>true</status>
+</report>
+<report>
+<imageFile>16.PNG</imageFile>
+<secondImageFile>17.PNG</secondImageFile>
+<line>Click 'Critical Incident Support' in zone default, index: 0, click count: 1</line>
+<status>false</status>
+</report>
+<report>
+<imageFile>18.PNG</imageFile>
+<line>End Test</line>
+<status>true</status>
+</report>
+</reports>
+</test_report>
