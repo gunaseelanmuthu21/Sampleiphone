@@ -23,11 +23,45 @@ public class Main {
         client.setReporter("xml", reports.getAbsolutePath(), "Demo5");
     }
     
-
     @Test
     public void testtestipone(){
         client.setDevice("ios_app:iris’s iPhone");
         client.click("default", "CONTINUE", 0, 1);
+        if(client.waitForElement("default", "element 2", 0, 30000)){
+            // If statement
+        }
+        client.click("default", "Managers Assistance Program", 0, 1);
+        if(client.waitForElement("default", "element 3", 0, 10000)){
+            // If statement
+        }
+        client.click("default", "backbutton", 0, 1);
+        if(client.waitForElement("default", "element 2", 0, 30000)){
+            // If statement
+        }
+        client.click("default", "Employee Assistance Program", 0, 1);
+        if(client.waitForElement("default", "element 1", 0, 10000)){
+            // If statement
+        }
+        client.click("default", "backbutton", 0, 1);
+        if(client.waitForElement("default", "element 2", 0, 30000)){
+            // If statement
+        }
+        client.click("default", "Critical Incident Support", 0, 1);
+        if(client.waitForElement("default", "element 5", 0, 10000)){
+            // If statement
+        }
+        client.click("default", "backbutton", 0, 1);
+        if(client.waitForElement("default", "element 2", 0, 30000)){
+            // If statement
+        }
+        client.click("default", "eapdirect", 0, 1);
+        if(client.waitForElement("default", "element 6", 0, 10000)){
+            // If statement
+        }
+        client.click("default", "backbutton", 0, 1);
+        if(client.waitForElement("default", "element 2", 0, 30000)){
+            // If statement
+        }
     }
 
     @After
