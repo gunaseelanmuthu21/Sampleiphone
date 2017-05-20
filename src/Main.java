@@ -12,7 +12,7 @@ public class Main {
     private int port = 8889;
     private String projectBaseDirectory = "/Users/mcc1/workspace/project3iphonenew";
     protected Client client = null;
-    //sample...1232e134121
+    //sampl..
 
     @Before
     public void setUp(){
@@ -71,5 +71,5 @@ public class Main {
         client.generateReport(false);
         // Releases the client so that other clients can approach the agent in the near future. 
         client.releaseClient();
-    }
+}
 }
